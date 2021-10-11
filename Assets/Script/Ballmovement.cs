@@ -8,8 +8,10 @@ public class Ballmovement : MonoBehaviour
 
     float horizontal;
     float vertical;
+    Vector2 currentVelocity;
 
-    public float runSpeed = 20.0f;
+    public float maxMoveSpeed = 10f;
+    public float smoothTime = 0.3f;
 
     void Start()
     {
@@ -17,13 +19,18 @@ public class Ballmovement : MonoBehaviour
     }
 
     void Update()
-    {
+    { 
+        // gerakan player menggunakan WASD ataupun arrowkey
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
+
+        // gerakan bola mengikuti mouse, menggunakan smoothdamp sehingga gerakan lebih halus
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = Vector2.SmoothDamp(transform.position, mousePosition, ref currentVelocity, smoothTime, maxMoveSpeed);
     }
 
     private void FixedUpdate()
     {
-        body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
+        body.velocity = new Vector2(horizontal * maxMoveSpeed, vertical * maxMoveSpeed);
     }
 }
