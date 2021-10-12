@@ -39,6 +39,7 @@ public class Ballmovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "kotakspawn")
         {
+            transform.localScale += new Vector3(0.05f, 0.05f, 0.05f);
             sc.IncrementScore();
             Destroy(collision.gameObject);
         }
