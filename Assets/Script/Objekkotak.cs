@@ -12,6 +12,7 @@ public class Objekkotak : MonoBehaviour
     void Start()
     {
         Spawn();
+        StartCoroutine(SpawnKotak());
     }
 
     void Spawn()
@@ -22,10 +23,47 @@ public class Objekkotak : MonoBehaviour
             float randomX = Random.Range(xMin, xMax);
             float randomY = Random.Range(yMin, yMax);
 
-            prevx = randomX;
-            prevy = randomY;
-
+            if (prevx < 0 && randomX < 0)
+            {
+                randomX = Mathf.Abs(randomX);
+                prevx = 0 - randomX;
+                prevy = randomY;
+            }
+            if (prevy < 0 && randomY < 0)
+            {
+                randomY = Mathf.Abs(randomY);
+                prevx = randomX;
+                prevy = 0 - randomY;
+            }
+            if (prevy > 0 && randomY > 0)
+            {
+                randomY = 0 - randomY;
+                prevx = randomX;
+                prevy = Mathf.Abs(randomY);
+            }
+            if (prevx > 0 && randomX > 0)
+            {
+                randomX = 0 - randomX;
+                prevx = Mathf.Abs(randomX);
+                prevy = randomY;
+            }
             Instantiate(kotak, new Vector2(randomX, randomY), Quaternion.identity);
+        }
+    }
+
+    IEnumerator SpawnKotak()
+    {
+        while (true)
+        {
+            if (transform.childCount < 10)
+            {
+                float randomX = Random.Range(xMin, xMax);
+                float randomY = Random.Range(yMin, yMax);
+
+                Instantiate(kotak, new Vector2(randomX, randomY), Quaternion.identity);
+
+            }
+            yield return new WaitForSeconds(3);
         }
     }
 
