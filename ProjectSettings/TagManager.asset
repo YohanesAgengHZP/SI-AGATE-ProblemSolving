@@ -6,6 +6,8 @@ TagManager:
   tags:
   - wallx
   - wally
+  - Undefined
+  - kotakspawn
   layers:
   - Default
   - TransparentFX

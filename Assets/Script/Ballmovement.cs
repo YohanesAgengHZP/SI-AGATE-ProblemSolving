@@ -10,7 +10,7 @@ public class Ballmovement : MonoBehaviour
     float vertical;
 
     Vector2 currentVelocity;
-
+    public Scorecount sc;
     public float maxMoveSpeed = 10f;
     public float smoothTime = 0.3f;
 
@@ -33,5 +33,14 @@ public class Ballmovement : MonoBehaviour
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(horizontal * maxMoveSpeed, vertical * maxMoveSpeed);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "kotakspawn")
+        {
+            sc.IncrementScore();
+            Destroy(collision.gameObject);
+        }
     }
 }
