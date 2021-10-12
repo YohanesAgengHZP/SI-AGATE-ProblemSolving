@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Ballmovement : MonoBehaviour
 {
-    Rigidbody2D body;
+    Rigidbody2D rb;
 
     float horizontal;
     float vertical;
+
     Vector2 currentVelocity;
 
     public float maxMoveSpeed = 10f;
@@ -15,7 +16,7 @@ public class Ballmovement : MonoBehaviour
 
     void Start()
     {
-        body = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -31,6 +32,6 @@ public class Ballmovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        body.velocity = new Vector2(horizontal * maxMoveSpeed, vertical * maxMoveSpeed);
+        rb.velocity = new Vector2(horizontal * maxMoveSpeed, vertical * maxMoveSpeed);
     }
 }
